@@ -16,3 +16,6 @@ What else do you need?
 ### Something I struggle with in new domain
 
 Understanding data to understand business better and vice-a-versa and most importantly building pipeline to integrate data of various kind for training deep learning models. Rest is history; that comes with experience.
+
+### How you can buy me
+If something you can buy me over, is over a cup of coffee and your inquisitiveness to put AI to innovate
