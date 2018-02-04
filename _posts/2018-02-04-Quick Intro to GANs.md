@@ -3,6 +3,7 @@ layout: post
 title: Understanding GANs; analyzing Generator and Discriminator losses 
 published: true
 image: /img/hello_world.jpeg
+share-img: /img/self.jpg
 ---
 
 GANs; known as Generative Adversarial Networks proposed in 2014 by Ian Goodfellow for their ability to learn a function mapping a random distribution to desired. Given this mapping, the function can synthetically generate desired number of observations. Starting from a random distribution or a given prior the generator adjusts its parameters so as to be able to generate samples closer to real distribution as evident below (taken from [machinelearning@Apple](https://machinelearning.apple.com/2017/07/07/GAN.html))
