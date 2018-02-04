@@ -1,16 +1,18 @@
 ---
 layout: page
 title: About me
-subtitle: Why you'd want to go on a date with me
+subtitle: AAhhh its AI in news again!
 ---
 
-My name is Inigo Montoya. I have the following qualities:
+My name is Deepak Bhatt. Everyday I sing up to the same song of Tensorflow to develop AI algorithms solving business specific problems. I like reading AI literatures (openreview.net is my holiday destination) and implementing them to solve problems at hand. Been worked at various capacity for following:
 
-- I rock a great mustache
-- I'm extremely loyal to my family
+- Automotive Navigation
+- Intelligent context determination
+- Natural Language Processing
+- AI in finance
 
 What else do you need?
 
-### my history
+### Something I struggle with in new domain
 
-To be honest, I'm having some trouble remembering right now, so why don't you just watch [my movie](http://en.wikipedia.org/wiki/The_Princess_Bride_%28film%29) and it will answer **all** your questions.
+Understanding data to understand business better and vice-a-versa and most importantly building pipeline to integrate data of various kind for training deep learning models. Rest is history; that comes with experience.
