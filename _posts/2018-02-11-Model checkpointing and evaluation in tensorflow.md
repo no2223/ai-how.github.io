@@ -8,7 +8,7 @@ share-img: /img/self.jpg
 ---
 # Brief on why model checkpointing is even needed?
 
-Training deep learning models is often backed with sufficiently large amount of data to learn patterns from, for example driving data measurement collected through long hours of driving to enable autonomous cars. Artificial Intelligence (AI) which can generate algorithm has surpassed the performance of traditional approaches be it audio, vision, text, anomaly etc. Extreme rigor is required in deciding the model architecture and its evaluation as there exist numerous parameters to tune (considering MLP below):
+Training deep learning models is often backed with sufficiently large amount of data to learn patterns from, for example sensor data measurements collected through long hours of driving to enable autonomous cars. Artificial Intelligence (AI) which can generate algorithm has surpassed the performance of traditional approaches be it audio, vision, text, anomaly etc. Extreme rigor is required in deciding the model architecture and its evaluation as there exist numerous parameters to tune (considering MLP below):
 - number of layers of a network
 - number of neurons in each layer
 - type of activation function
@@ -98,6 +98,6 @@ for model in (list_of_pb_files):
 Thus using probs from various saved models the performance metric is evaluated and the model with best metric on validation dataset is chosen.
 
 # Summary
-In this post you would have discovered a way to checkpoint best model parameters in training phase using tensorflow. Further how to convert all the saved models in .pb file in an automated fashion which could further be used to get model predictions and evaluate its performance on validation dataset. This is extremely important to spot the optimal trained model parameters in training phase and boost overall performance.
+In this post readers discovered a way to checkpoint best model parameters in training phase using tensorflow. Further how to convert all the saved models in .pb file in an automated fashion which could further be used to get model predictions and evaluate its performance on validation dataset. This is extremely important to spot the optimal trained model parameters in training phase and boost overall performance.
 
 
