@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Checkpointing and evaluating trained model using Tensorflow 
-published: false
+published: true
 comments: true
 image: /img/hello_world.jpeg
 share-img: /img/self.jpg
