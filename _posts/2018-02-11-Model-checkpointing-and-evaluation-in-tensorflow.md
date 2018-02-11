@@ -98,6 +98,6 @@ for model in (list_of_pb_files):
 Thus using probs from various saved models the performance metric is evaluated and the model with best metric on validation dataset is chosen.
 
 # Summary
-In this post readers discovered a way to checkpoint best model parameters in training phase using tensorflow. Further how to convert all the saved models in .pb file in an automated fashion which could further be used to get model predictions and evaluate its performance on validation dataset. This is extremely important to spot the optimal trained model parameters in training phase and boost overall performance.
+In this post readers discovered a way to checkpoint best model parameters in training phase using tensorflow. Further how to convert all the saved models in .pb file in an automated fashion which could then be used to get model predictions and evaluate its performance on validation dataset. This is extremely important to spot the optimal trained model parameters in training phase and boost overall performance.
 
 
