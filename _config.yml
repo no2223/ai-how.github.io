@@ -40,10 +40,10 @@ avatar: "/img/self.jpg"
 
 # --- Background colour/image options --- #
 
-# Personalize the colors in your website. Colour values can be any valid CSS colour
+# Personalize the colors in your website. Colour values can be any valid CSS colour #4682B4
 
-navbar-col: "#CD5C5C"
-navbar-text-col: "#404040"
+navbar-col: "#4682B4"
+navbar-text-col: "#FFFFFF"
 navbar-children-col: "#F5F5F5"
 page-col: "#FFFFFF"
 link-col: "#008AFF"
