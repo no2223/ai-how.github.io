@@ -28,7 +28,7 @@ In figure above, real examples corresponds to observed flower images whereas gen
 
 Supervised learning are thus benefitted with enhanced feature representations obtained using unsupervised method.
 
-## Semisupervised method for training a classifier
+## Semi-supervised method for training a classifier
 
 Semi supervised technique has proven to be effective when enough labeled samples are not available. In the context of GANs this has been approached very well by changing the objective of discriminator. Assuming a MNIST classification problem, the final layer of discriminator outputs probability for each of the 10 labels. Thus when labeled samples are fed as an input to the discriminator, the discriminator cost is calculated using cross-entropy (indicated below using three layer architecture for discriminator). For the purpose of illustration one digit is indicated as an input, usually samples are fed in a mini-batch (typically of size 64, 128) and then cross entorpy loss is estimated to tune the discriminator weights.
 
