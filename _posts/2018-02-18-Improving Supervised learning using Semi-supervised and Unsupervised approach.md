@@ -22,7 +22,7 @@ Unsupervised learning involves learning the representaions from observed samples
 
 To learn the representaions in an unsupervised fashion, GANs can first be trained to simulate images of flower by learning their underlying distribution (depcited below, taken from [1](http://www.araya.org/archives/1183)). Figure below is just for illustration, in reality each of the generator and discriminator components are many layer deep with other generalization layers such as batch normalization, dropouts.
 
-<p align="center"> <img src="https://github.com/ai-how/ai-how.github.io/blob/master/img/gans.png" width="350" height="200" /> </p>
+<p align="center"> <img src="/img/gans.png" width="350" height="200" /> </p>
 
 In figure above, real examples corresponds to observed flower images whereas generated is an output from trained generator. GANs are continuously trained as long as the generated samples gets closer to real. Once the training is over discriminator can then be used to feed all the observed samples to derive the n-dimensional learned representations (taken as second last layer output which contains n number of neurons). These representaions can then be fed to a classifier along with their desired labels for improved learning.
 
@@ -32,7 +32,7 @@ Supervised learning are thus benefitted with enhanced feature representations ob
 
 Semi supervised technique has proven to be effective when enough labeled samples are not available. In the context of GANs this has been approached very well by changing the objective of discriminator. Assuming a MNIST classification problem, the final layer of discriminator outputs probability for each of the 10 labels. Thus when labeled samples are fed as an input to the discriminator, the discriminator cost is calculated using cross-entropy (indicated below using three layer architecture for discriminator). For the purpose of illustration one digit is indicated as an input, usually samples are fed in a mini-batch (typically of size 64, 128) and then cross entorpy loss is estimated to tune the discriminator weights.
 
-<p align="center"> <img src="https://github.com/ai-how/ai-how.github.io/blob/master/img/discloss.png" width="300" height="300" /> </p>
+<p align="center"> <img src="/img/discloss.png" width="300" height="300" /> </p>
 
 One might wonder by now, how is cost calculated for unlabeled samples?. Well my unlabeled samples could arise from real data or from generated samples, in such cases the discriminator is trained to minimize the summation of probs for all digits. This in turn allow discriminator to label them fake with high confidence. Contrary to this the job of the generator now becomes to generate samples so as to be able to increase the confidence of discriminator to label them as real (which is generally obtained by combining all the 10 output probs of a discriminator).
 
