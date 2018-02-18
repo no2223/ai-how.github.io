@@ -6,10 +6,10 @@ comments: true
 ---
 ## Brief to Generative and Discriminative models
 Learning approaches can be broadly divided into two categories; generative and discriminative. Generative models learn the underlying distribution of data representing various categories for example, model may learn distribution of pixels in an image when a cat is present differently in comparison to presence of a dog. Thus, training generative model involves identifying following:
-<p align="center"> <img src="https://github.com/ai-how/ai-how.github.io/blob/master/img/gen.png" /> </p>
+<p align="center"> <img src="/img/gen.png" /> </p>
 
 Ideally once the model learns the real underlying distribution it can be used to generate unseen samples which could further improve generalization capability of supervised techniques (discussed later). Discriminative models on the other hand models the conditional probability via relying heavily on the observed dataset for example, given the pixels arrangement in an image it learns to label an image as a cat or dog (considering two label calssification problems)
-<p align="center"> <img src="https://github.com/ai-how/ai-how.github.io/blob/master/img/cond.png" /> </p>
+<p align="center"> <img src="/img/cond.png" /> </p>
 
 Generative models aids the unsupervised learning by improving the learned representations of observed samples corresponding to different classes.
 ## Improving learning using unsupervised and supervised techniques
