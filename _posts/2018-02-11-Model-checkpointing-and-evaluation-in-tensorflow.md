@@ -21,7 +21,7 @@ To look for the above **Stop here** point the model performance is evaluated aft
 This is where tensorflow comes handy
 ## Checkpointing trained models 
 
-```javascript
+```python
 ##=====================================##
 ##  load relevant libraries            ##
 ##=====================================##
@@ -52,7 +52,7 @@ Checkpointing models at various iterations save three files with extension .meta
 - generate .pb file for each saved model
 - Output predictions using .pb files and evaluate model performance
 
-```javascript
+```python
 ##===========little bit of regex to extract path and model identifier==============##
 address = []
 identifier = []
