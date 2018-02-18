@@ -12,11 +12,11 @@ Ideally once the model learns the real underlying distribution it can be used to
 <p align="center"> <img src="/img/cond.png" /> </p>
 
 Generative models aids the unsupervised learning by improving the learned representations of observed samples corresponding to different classes.
-## Improving learning using unsupervised and supervised techniques
+
 Before we go on understanding how unsupervised learning can augment the supervised technique (or a classifier), I am tempted to quote following which fuels the need to reap the benefits unsupervised learning can deliver
 >"If intelligence was a cake, unsupervised learning would be the cake, supervised learning would be the icing on the cake, and reinforcement learning would be the cherry on the cake. We know how to make the icing and the cherry, but we don’t know how to make the cake"
 
-## How to improve generalization using unsupervised technique?
+## Improving generalization using unsupervised technique
 Unsupervised learning involves learning the representaions from observed samples with no information about their category or class. It tries to cluster the samples through its n-dimensional representations for example using auto-encoders, GANs. Assuming the task is to learn a classifier to distinguish between types of flowers, it proceeds in two steps:
 * learn the n-dimensional representaion from given samples in an unsupervised manner
   * Using learned representaions train a classifier to classify images of different types
