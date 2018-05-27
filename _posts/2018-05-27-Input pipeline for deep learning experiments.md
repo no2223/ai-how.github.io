@@ -130,7 +130,7 @@ Recently switched to Pytorch for its greater flexibility and wide adoption among
 * Requires loading data to use their dataloader API
 * Inability to use data iterator using numpy in memmap mode to fetch mini-batches
 
-Thus decided to write my own dataloader API which fetched mini-batch from disk and fills the data in queues (one in CPU and another in GPU). Thus queue in GPU is filled using queue available in CPU thereby reducing latency in data transfer and overall model training cycle. The below script is modified and adapted for my own purpose from [1] (https://www.sagivtech.com/2017/09/19/optimizing-pytorch-training-code/)
+Thus decided to write my own dataloader API which fetched mini-batch from disk and fills the data in queues (one in CPU and another in GPU). Thus queue in GPU is filled using queue available in CPU thereby reducing latency in data transfer and overall model training cycle. The below script is modified and adapted for my own purpose from [1](https://www.sagivtech.com/2017/09/19/optimizing-pytorch-training-code/)
 
 ```python
 
