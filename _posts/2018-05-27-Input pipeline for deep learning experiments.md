@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Input pipeline for deep learning experiments: Keras, Tensorflow and Pytorch 
-published: false
+published: true
 comments: true
 ---
 
