@@ -232,6 +232,7 @@ features, labels, index = cuda_batches_queue.get(block=True)
 
 ```
 
+On a personal note, using these pipelines significantly reduces the model training time since the buffer of mini-batches are always maintained using queue and thus fetching them from queue is minimal. Use these techniques to optimize your deep learning pipelines when working on non-standard dataset for which input data pipelines are to be written.
 
-
+Go Deep !!
 
