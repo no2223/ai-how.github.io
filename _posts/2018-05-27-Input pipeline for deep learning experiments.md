@@ -4,7 +4,7 @@ title: Input pipeline for deep learning experiments in Keras, Tensorflow and Pyt
 published: true
 comments: true
 ---
-# Input data pipelines for deep learning experiments
+# Why input data pipeline needs to be optimal ?
 
 Increasing list of algorithms and techniques aiming to improve the performance of deep learning models often instills a curiosity to benchmark how well these models perform. Benchmarking these techniques (on a dataset specific to business) often require writing your own pipeline which could quickly fetch mini-batches and run multiple iterations to search for optimal hyper parameters.
 
