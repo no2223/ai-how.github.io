@@ -124,3 +124,114 @@ sess.run([train_opt], feed_dict = {X: feat_X, Y: Y})
 ```
 
 # Pytorch
+
+Recently switched to Pytorch for its greater flexibility and wide adoption among research community. An initial glance to their data loader API poses the following limitation (basis my understanding):
+* Requires loading data to use their dataloader API
+* Inability to use data iterator using numpy in memmap mode to fetch mini-batches
+
+Thus decided to write my own dataloader API which fetched mini-batch from disk and fills the data in queues (one in CPU and another in GPU). Thus queue in GPU is filled using queue available in CPU thereby reducing latency in data transfer and overall model training cycle. The below script is modified and adapted for my own purpose from [1] (https://www.sagivtech.com/2017/09/19/optimizing-pytorch-training-code/)
+
+```python
+
+import Queue
+import Thread
+
+class InputGen:	
+	def __iter__(self):
+		while 1:
+			feat_path = "/path/to/feature/file/*.npy"
+			label_path = "/path/to/label/file/*.npy"
+			x = np.load(feat_path, mmap_mode='r')
+			y = np.load(label_path, mmap_mode='r')
+			iters = x.shape[0]/batch_size
+			for i in range(iters+1):
+				if i< iters:
+					Xtrain = np.transpose(x[(i*batch_size):((i+1)*batch_size)], (0,3,1,2))
+					ytrain = y[(i*batch_size):((i+1)*batch_size)]
+					yield (i, Xtrain, ytrain)
+				else:
+					Xtrain = np.transpose(x[(i*batch_size):], (0,3,1,2))
+					ytrain = y[(i*batch_size):]
+					yield (i, Xtrain, ytrain)
+
+def threaded_batches_feeder(tokill, batches_queue, dataset_generator):
+	"""Threaded worker for pre-processing input data.
+	tokill is a thread_killer object that indicates whether a thread should be terminated
+	dataset_generator is the training/validation dataset generator
+	batches_queue is a limited size thread-safe Queue instance.
+	"""
+	while tokill() == False:
+		for i, (indx, batch_images, batch_labels) \
+			in enumerate(dataset_generator):
+				batches_queue.put((indx, batch_images, batch_labels)\
+								, block=True)
+				if tokill() == True:
+					return
+
+def threaded_cuda_batches(tokill,cuda_batches_queue,batches_queue):
+	"""Thread worker for transferring pytorch tensors into
+	GPU. batches_queue is the queue that fetches numpy cpu tensors.
+	cuda_batches_queue receives numpy cpu tensors and transfers them to GPU space.
+	"""
+	while tokill() == False:
+		indx, batch_images, batch_labels = batches_queue.get(block=True)
+		batch_images = torch.from_numpy(batch_images)
+		batch_labels = torch.from_numpy(batch_labels)
+		batch_images = Variable(batch_images).float().cuda()
+		batch_labels = Variable(batch_labels).cuda()
+		cuda_batches_queue.put((indx, batch_images, batch_labels), block=True)
+		if tokill() == True:
+			return
+			
+class thread_killer(object):
+	"""Boolean object for signaling a worker thread to terminate
+	"""
+	def __init__(self):
+		self.to_kill = False
+	
+	def __call__(self):
+		return self.to_kill
+	
+	def set_tokill(self,tokill):
+		self.to_kill = tokill
+
+##====================================##
+## define the queues for CPU and GPU==##
+##====================================##
+		
+train_batches_queue = Queue(maxsize=40)
+cuda_batches_queue = Queue(maxsize=15) ## increasing the size would hog the GPU, so be considerate
+
+training_set_generator = InputGen()
+train_thread_killer = thread_killer()
+train_thread_killer.set_tokill(False)
+preprocess_workers = 1
+
+##===========================================##
+## start threads to fill GPU and CPU queues==##
+##===========================================##
+
+print ("starting thread ")
+for _ in range(preprocess_workers):
+	t = Thread(target=threaded_batches_feeder, \
+			args=(train_thread_killer, train_batches_queue, training_set_generator))
+	t.start()
+cuda_transfers_thread_killer = thread_killer()
+cuda_transfers_thread_killer.set_tokill(False)
+cudathread = Thread(target=threaded_cuda_batches, \
+			args=(cuda_transfers_thread_killer, cuda_batches_queue, train_batches_queue))
+cudathread.start()
+print ("thread started")
+sys.stdout.flush()
+
+##=================================##
+## fetch mini-batch for training ==##
+##=================================##
+
+features, labels, index = cuda_batches_queue.get(block=True)
+
+```
+
+
+
+
