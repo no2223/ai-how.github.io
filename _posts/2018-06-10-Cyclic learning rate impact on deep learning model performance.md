@@ -3,7 +3,7 @@ layout: post
 title: Scheduling learning rate to improve model performance 
 published: true
 comments: true
-image: "/img/CLR_schedule.png"
+image: "/img/Test_loss.png"
 share-img: "/img/Test_loss.png"
 thumbnail: "/img/Test_loss.png"
 ---
