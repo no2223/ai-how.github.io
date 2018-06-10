@@ -14,4 +14,4 @@ Without spending too much time in explaining Learning rate, I will straight forw
 
 To identify the min and max learning rates, the paper suggest increasing the learning rate from low to some high value and monitor the loss, point where loss (or accuracy) starts to increase (or decrease for accuracy metrics) should be the bound for max learning rate. Below is an experiment I conducted to demonstrate this for SVHN dataset. Here the learning rate is changed linearly from .001 to .5 for 150 number of epochs.
 
-<p align="center"> <img src="https://ai-how.github.io/img/min_.png" width="600" height="600" /> </p>
+<p align="center"> <img src="https://ai-how.github.io/img/min_max.png" width="600" height="600" /> </p>
