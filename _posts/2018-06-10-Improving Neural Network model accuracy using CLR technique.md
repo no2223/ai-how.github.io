@@ -3,7 +3,7 @@ layout: post
 title: Scheduling learning rate to improve model performance 
 published: true
 comments: true
-share-img: "https://ai-how.github.io/img/CLR.png"
+share-img: https://ai-how.github.io/img/CLR.png
 ---
 # Quick Intro to Cyclic Learning Rate (CLR)
 
