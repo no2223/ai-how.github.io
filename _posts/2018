@@ -1,0 +1,205 @@
+import time
+import numpy as np
+import sklearn.datasets
+import tensorflow as tf
+import pandas as pd
+import tflib as lib
+import tflib.ops.linear
+
+def build_path(prefix, model_type, num_layers, postpix=""):
+    return prefix + "-" + model_type + "-" + str(num_layers) + postpix
+    
+import os, sys
+setpath = ''
+sys.path.append(setpath)
+import configparser
+config = configparser.ConfigParser()
+config.read(setpath+'/config.file')
+print (config.sections())
+sys.stdout.flush()
+
+Factor_M = int(config['gan.params']['Factor_M'])
+LAMBDA_2 = int(config['gan.params']['LAMBDA_2'])
+n_examples = int(config['gan.params']['n_examples'])
+MODE = config['gan.params']['MODE']
+DIM = int(config['gan.params']['DIM'])
+BATCH_SIZE = int(config['gan.params']['BATCH_SIZE'])
+CRITIC_ITERS = int(config['gan.params']['CRITIC_ITERS'])
+LAMBDA = int(config['gan.params']['LAMBDA'])
+ITERS = int(config['gan.params']['ITERS'])
+OUTPUT_DIM = int(config['gan.params']['OUTPUT_DIM'])
+GEN_DIM = int(config['gan.params']['GEN_DIM'])
+data_dir = config['gan.params']['data_dir']
+filename_target = config['gan.params']['filename_target']
+output_file = config['gan.params']['output_file']
+output_final = config['gan.params']['output_final']
+no_samples = int(config['gan.params']['no_samples'])
+b_factor = int(config['gan.params']['b_factor'])
+
+def Generator(n_samples, noise=None):
+    if noise is None:
+        noise = tf.random_normal([n_samples, OUTPUT_DIM])
+    output = lib.ops.linear.Linear('Generator.Input', OUTPUT_DIM, GEN_DIM, noise)
+    if MODE == 'wgan':
+        output = lib.ops.batchnorm.Batchnorm('Generator.BN1', [0], output)
+    output = tf.nn.relu(output)
+    output = tf.reshape(output, [-1, GEN_DIM])
+    output = lib.ops.linear.Linear('Generator.Input1', GEN_DIM, OUTPUT_DIM, output)
+    return tf.reshape(output, [-1, OUTPUT_DIM])
+    
+def Discriminator(inputs):
+    output = lib.ops.linear.Linear('Discriminator.1', OUTPUT_DIM, DIM, inputs)
+    output = LeakyReLU(output)
+    output = tf.nn.dropout(output, keep_prob=0.50)    # adding dropout after activators
+    output = lib.ops.linear.Linear('Discriminator.2', DIM, 2*DIM, output)
+    if MODE == 'wgan':
+        output = lib.ops.batchnorm.Batchnorm('Discriminator.BN2', [0], output)
+    output = LeakyReLU(output)
+    output = tf.nn.dropout(output, keep_prob=0.50)     # adding dropout after activators
+    output = lib.ops.linear.Linear('Discriminator.3', 2*DIM, 4*DIM, output)
+    if MODE == 'wgan':
+        output = lib.ops.batchnorm.Batchnorm('Discriminator.BN3', [0], output)
+    output = LeakyReLU(output)
+    output = tf.nn.dropout(output, keep_prob=0.50)     # adding dropout after activators
+    output2 = tf.reshape(output, [-1, 4*DIM])      # D_
+    output = lib.ops.linear.Linear('Discriminator.Output', 4*DIM, 1, output2)  #D
+    return tf.reshape(output, [-1]), output2, output
+    
+real_data = tf.placeholder(tf.float32, shape=[BATCH_SIZE, OUTPUT_DIM])
+fake_data = Generator(BATCH_SIZE)
+
+disc_real, disc_real_2,outputr= Discriminator(real_data)
+disc_real_, disc_real_2_,outputr_= Discriminator(real_data)
+disc_fake,disc_fake_,outputf = Discriminator(fake_data)
+disc_fake_2,disc_fake_2_,outputf_ = Discriminator(fake_data)
+
+gen_params = lib.params_with_name('Generator')
+disc_params = lib.params_with_name('Discriminator')
+
+if MODE == 'wgan-CT':
+    #original cost
+    gen_cost = -tf.reduce_mean(disc_fake)
+    disc_cost = tf.reduce_mean(disc_fake) - tf.reduce_mean(disc_real) 
+    #consistency cost
+    CT = LAMBDA_2*tf.square(disc_real-disc_real_)
+    CT += LAMBDA_2*0.1*tf.reduce_mean(tf.square(disc_real_2-disc_real_2_),reduction_indices=[1])
+    CT_ = tf.maximum(CT-Factor_M,0.0*(CT-Factor_M))
+    disc_cost += tf.reduce_mean(CT_)
+    alpha = tf.random_uniform(
+        shape=[BATCH_SIZE,1], 
+        minval=0.,
+        maxval=1.
+    )
+    differences = fake_data - real_data
+    interpolates = real_data + (alpha*differences)
+    gradients = tf.gradients(Discriminator(interpolates)[0], [interpolates])[0]
+    slopes = tf.sqrt(tf.reduce_sum(tf.square(gradients), reduction_indices=[1]))
+    gradient_penalty = tf.reduce_mean((slopes-1.)**2)
+    disc_cost += LAMBDA*gradient_penalty
+    gen_train_op = tf.train.AdamOptimizer(
+        learning_rate=1e-4, 
+        beta1=0.5,
+        beta2=0.9
+    ).minimize(gen_cost, var_list=gen_params)
+    disc_train_op = tf.train.AdamOptimizer(
+        learning_rate=1e-4, 
+        beta1=0.5, 
+        beta2=0.9
+    ).minimize(disc_cost, var_list=disc_params)
+    clip_disc_weights = None
+    tf.summary.scalar("gen_cost", gen_cost)
+    tf.summary.scalar("disc_cost", disc_cost)
+    
+from sklearn.preprocessing import StandardScaler
+
+def next_batch( data, num):
+    '''
+    Return a total of `num` random samples and labels. 
+    '''
+    idx = np.arange(0 , len(data))
+    np.random.shuffle(idx)
+    idx = idx[:num]
+    data_shuffle = [data[ i] for i in idx]
+    return np.asarray(data_shuffle)
+
+
+dataset_target = data_dir+'/'+filename_target
+hb_def = np.genfromtxt(dataset_target,delimiter= ',')
+std_scaler = StandardScaler()
+hb_def = std_scaler.fit_transform(hb_def)
+
+%matplotlib notebook
+import scipy.stats as stats
+import matplotlib.pyplot as plt
+import numpy as np
+import time
+
+#initialise the graph and settings
+fig = plt.figure()
+fig2 = plt.figure()
+ax = fig.add_subplot(111)
+ax1 = fig2.add_subplot(121)
+ax2 = fig2.add_subplot(122)
+#ax.patch.set_alpha(0.1)
+plt.ion()
+
+fig.show()
+fig.canvas.draw()
+
+fig2.show()
+fig2.canvas.draw()
+
+x=[]
+y=[]
+saver = tf.train.Saver()
+with tf.Session() as session:
+    session.run(tf.initialize_all_variables())
+    tvars = tf.trainable_variables()
+    tvars_vals = session.run(tvars)
+    train_writer = tf.summary.FileWriter(logs_path,session.graph)
+    train_writer.add_graph(session.graph)
+    for iteration in range(ITERS):
+        start_time = time.time()
+        if iteration > 0:
+            _gen_cost,_ = session.run([gen_cost,gen_train_op])
+        if MODE == 'dcgan':
+            disc_iters = 1
+        else:
+            disc_iters = CRITIC_ITERS
+        for i in range(disc_iters):
+            _data = next_batch(hb_def,BATCH_SIZE)
+            _disc_cost, _,dr,df= session.run([disc_cost, disc_train_op,disc_real, disc_fake],feed_dict={real_data: _data})
+        if (iteration+1) % 100 == 0:
+            mean_real = session.run(tf.reduce_mean(dr))
+            x.append(mean_real)
+            mean_fake = session.run(tf.reduce_mean(df))
+            y.append(mean_fake)
+            ax.plot(x , linestyle='-', marker='o') #, '.r-')
+            ax.plot(y, linestyle='-', marker='*') # 'xb-')
+            ax1.plot(iteration, _disc_cost, '-o')
+            ax2.plot(iteration, _gen_cost, '-*')
+            fig.canvas.draw()
+            fig2.canvas.draw()
+        sys.stdout.flush()
+    synthetic_obs = session.run(Generator(no_samples))
+
+## config file
+
+[gan.params]
+Factor_M = 0
+LAMBDA_2 = 2
+n_examples = 1000
+MODE = wgan-CT
+DIM = 32
+BATCH_SIZE = 50
+CRITIC_ITERS = 10
+LAMBDA = 10
+ITERS = 50000
+OUTPUT_DIM = 44
+GEN_DIM = 64
+data_dir = 
+filename_target = low_tenure_df.csv
+output_file = synth_df.csv
+output_final = synth_df_final.csv
+no_samples=10000
+b_factor = 50
