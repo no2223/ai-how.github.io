@@ -40,4 +40,4 @@ This approach has shown to work well for few shot classification problem such as
 
 In various industrial application there exist dataset which is not in abundance to fullfill the deep neural network desire to train effectively. Meta learning in such domains become the natural choice to train models which could learn from limited dataset available for different tasks quickly and efficiently. Say a credit card company launhces a new credit card across selective few markets and the datapoints depicting defaulter behavior is emerging (and thus very few), in such scenarios building predictive model using limited datapoints would not work in a traditional way. With meta learning approach each market could be treated as a task and thus the model parameter for each task can be fine-tuned to model defaulter behavior efficiently.
 
-Resaerch along this direction forces me to think if existing classification models (for large labeled training dataset) build this way would be more efficient or not ?
+Research along this direction forces me to think if existing classification models (for large labeled training dataset) build this way would be more efficient or not ?
