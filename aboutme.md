@@ -4,7 +4,7 @@ title: About me
 subtitle: AAhhh its AI in news again!
 ---
 
-My name is Deepak Bhatt. Everyday I sing up to the same song of Tensorflow to develop AI algorithms solving business specific problems. I like reading AI literatures (openreview.net is my holiday destination) and implementing them to solve problems at hand. Been worked at various capacity for following:
+Hey everyone glad seeing you landing to this page. Blessed to be in the era of great deep learning community of developers and researchers who gives us wing to apply their novel ideas to solve the business problems we work on. I enjoy reading AI literatures (such as openreview.net, arxiv) and implementing them to solve industrial problems at hand. Been worked at various capacity for following:
 
 - Automotive Navigation
 - Intelligent context determination
