@@ -10,11 +10,24 @@ thumbnail: "/img/MAML.jpg"
 
 # GANs quick recap
 
-GANs as a generative modeling approach has demonstrated the ability to learn an underlying distribution of the partially observed data. This learnt distribution is then applied to generate sample of similar kind thereby benefitting in improving the data size, its quality. GANs have found useful in several applications (not limited to):
+GANs as a generative modeling approach has demonstrated the ability to learn an underlying distribution of the partially observed data. This learnt distribution is then applied to generate sample of similar kind thereby benefitting in increasing the data size and its quality. GANs have found useful in several applications (not limited to):
   * Image enhancement such as super resolution
   * Style transfer
   * Healthcare such as drug discovery
-In this blog I am interested in detailing how GANs have been used to impute missing observations also known as imcomplete data. More specifically I am referring to recent article published at ICLR 2019
+
+In this blog I would walkthrough how GANs are used to impute missing observations also known as incomplete data. More specifically I am referring to recent article published at ICLR 2019 [1](https://openreview.net/pdf?id=S1lDV3RcKm)
+
+It utilizes following three pairs of Generators and discriminators:
+   * learning the distirbution of missing values
+   * learning the distribution of incomplete target data
+   * Imputer which imputes the missing observation in observed dataset
+
+Given a set of incomplete observations, a mask is defined as below (zero if observation is missing and 1 otherwise).
+
+                    m Є {0,1}
+                   
+<p align="center"> <img src="https://ai-how.github.io/img/20190120_181402.png" width="300" height="200" /> </p>
+
 
 to generate synthetic sample coming from the To mimic the way human perceive, process and associate the previously seen information to better identify the current experience requires ability to extend the information learnt from previous tasks. Human brain is good at propagating the information learnt from one task to adapt to another. As a result, it quickly grasp and understand the concepts with minimal number of examples.
 
