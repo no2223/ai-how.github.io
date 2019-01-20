@@ -11,8 +11,10 @@ thumbnail: "/img/MAML.jpg"
 # GANs quick recap
 
 GANs as a generative modeling approach has demonstrated the ability to learn an underlying distribution of the partially observed data. This learnt distribution is then applied to generate sample of similar kind thereby benefitting in improving the data size, its quality. GANs have found useful in several applications (not limited to):
-
-
+  * Image enhancement such as super resolution
+  * Style transfer
+  * Healthcare such as drug discovery
+In this blog I am interested in detailing how GANs have been used to impute missing observations also known as imcomplete data. More specifically I am referring to recent article published at ICLR 2019
 
 to generate synthetic sample coming from the To mimic the way human perceive, process and associate the previously seen information to better identify the current experience requires ability to extend the information learnt from previous tasks. Human brain is good at propagating the information learnt from one task to adapt to another. As a result, it quickly grasp and understand the concepts with minimal number of examples.
 
