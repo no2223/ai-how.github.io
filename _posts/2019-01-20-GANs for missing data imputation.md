@@ -15,19 +15,49 @@ GANs as a generative modeling approach has demonstrated the ability to learn an 
   * Style transfer
   * Healthcare such as drug discovery
 
-In this blog I would walkthrough how GANs are used to impute missing observations also known as incomplete data. More specifically I am referring to recent article published at ICLR 2019 [1](https://openreview.net/pdf?id=S1lDV3RcKm)
+In this blog lets walkthrough how GANs are used to impute missing observations also known as incomplete data. More specifically I am referring to recent article published at ICLR 2019 [1](https://openreview.net/pdf?id=S1lDV3RcKm)
 
 It utilizes following three pairs of Generators and discriminators:
    * learning the distirbution of missing values
    * learning the distribution of incomplete target data
    * Imputer which imputes the missing observation in observed dataset
 
+# How it works ?
+
 Given a set of incomplete observations, a mask is defined as below (zero if observation is missing and 1 otherwise).
+                                                    m Є {0,1}
 
-                    m Є {0,1}
-                   
-<p align="center"> <img src="https://ai-how.github.io/img/20190120_181402.png" width="300" height="200" /> </p>
+An incomplete dataset can now be represented as:
+                    
+                                           D = {(xi, mi)} where i Є 1,...,N
 
+<p align="center"> <img src="https://ai-how.github.io/img/20190120_181543.png" width="400" height="300" /> </p>
+
+Lets talk about how GANs learns the distribution of location of missing values in an incomplete dataset. Given an input sampled from a distribution known apriori, generater Gmask generates samples which are then fed to discriminator along with masked data derived from observed data. Masked data contains 1s in place where data is observed and 0 otherwise. In this process generator learns to map the apriori distribution to a masked data distribution and adjust its weights so as to be able to locate position of missing values in an observed data.
+
+Loss for this GAN (am referring here as GANmask) is defined as below:
+
+<p align="center"> <img src="https://ai-how.github.io/img/Mask_Loss.png" width="450" height="25" /> </p>
+
+Another set of GAN (referred as Gdata & Ddata) learns to generate complete observation using incomplete dataset. As usual with GAN training, generator here learns to generate samples (closer to the incomplete data) through an adversarial process where discriminator attempts hard to discriminate between generated samples and observed data. The input to the discriminator is slightly modified using masked operator (defined below):
+
+<p align="center"> <img src="https://ai-how.github.io/img/Disc_Inp.png" width="200" height="25" /> </p>
+
+Here ̃m represents the compliment of m and is used to fill location of missing values with a constant. The training objective of this GAN now becomes:
+
+<p align="center"> <img src="https://ai-how.github.io/img/GANdata_Loss.png" width="550" height="25" /> </p>
+
+As seen above the combined output of Gmask and Gdata becomes fake sample for discriminator to discriminate against the real data slightly modified using the masking operator (shown above).
+
+Thus the final training objective of GANmask and GANdata now becomes as below:
+
+<p align="center"> <img src="https://ai-how.github.io/img/Combined_Objective.png" width="300" height="50" /> </p>
+
+# Imputing missing values in observed data
+
+With the above configuration GANs now would be able to learn the distribution of missing values and generate complete data. Something that interests a lot is to be able to impute missing values in place on a given incomplete data. For this another GAN known as imputer is trained (depicted below):
+
+<p align="center"> <img src="https://ai-how.github.io/img/20190120_181543.png" width="400" height="300" /> </p>
 
 to generate synthetic sample coming from the To mimic the way human perceive, process and associate the previously seen information to better identify the current experience requires ability to extend the information learnt from previous tasks. Human brain is good at propagating the information learnt from one task to adapt to another. As a result, it quickly grasp and understand the concepts with minimal number of examples.
 
