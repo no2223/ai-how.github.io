@@ -57,7 +57,24 @@ Thus the final training objective of GANmask and GANdata now becomes as below:
 
 With the above configuration GANs now would be able to learn the distribution of missing values and generate complete data. Something that interests a lot is to be able to impute missing values in place on a given incomplete data. For this another GAN known as imputer is trained (depicted below):
 
-<p align="center"> <img src="https://ai-how.github.io/img/20190120_181543.png" width="400" height="300" /> </p>
+<p align="center"> <img src="https://ai-how.github.io/img/20190120_181402.png" width="400" height="300" /> </p>
+
+Generator (Gimpute here) takes real data (incomplete) along with some noise and learns to generate samples with following characteristics:
+
+   * observed values are kept intact
+   * missing locations are imputed
+
+Whereas the discriminator learns to discriminate between generated samples (that comes from Gdata) and Gimpute. For imputer GAN loss is defined as below:
+
+<p align="center"> <img src="https://ai-how.github.io/img/Loss_Imputer.png" width="500" height="25" /> </p>
+
+The joint learning for generating process and imputer is defined as according to the following objectives:
+
+<p align="center"> <img src="https://ai-how.github.io/img/Joint_Learning.png" width="500" height="90" /> </p>
+
+The whole architectural approach to use GANs for missing value imputation looks quite convincing. Lets have a look at how this approach compares against some of the benchmarks. Below depcicts the performance comparison of how well MisGAN (as referred here in this paper [1](https://openreview.net/pdf?id=S1lDV3RcKm)) imputes missing value and is able to generate clear digits where other methods looks to struggle.
+
+For more indepth details I would recommend to read this interesting paper which got accepted at ICLR-2019 [1](https://openreview.net/pdf?id=S1lDV3RcKm)
 
 to generate synthetic sample coming from the To mimic the way human perceive, process and associate the previously seen information to better identify the current experience requires ability to extend the information learnt from previous tasks. Human brain is good at propagating the information learnt from one task to adapt to another. As a result, it quickly grasp and understand the concepts with minimal number of examples.
 
