@@ -1,11 +1,11 @@
 ---
 layout: post
 title: Learning missing value distribution and its imputation using GANs
-published: false
+published: true
 comments: true
-image: "/img/MAML.jpg"
-share-img: "/img/MAML.jpg"
-thumbnail: "/img/MAML.jpg"
+image: "/img/20190120_181402.png"
+share-img: "/img/20190120_181402.png"
+thumbnail: "/img/20190120_181402.png"
 ---
 
 # GANs quick recap
