@@ -64,7 +64,7 @@ Generator (Gimpute here) takes real data (incomplete) along with some noise and 
    * observed values are kept intact
    * missing locations are imputed
 
-Whereas the discriminator learns to discriminate between generated samples (that comes from Gdata) and Gimpute. For imputer GAN loss is defined as below:
+Whereas the discriminator learns to discriminate between generated samples (that comes from Gdata) and Gimpute (illustrated in figure above). For imputer GAN loss is defined as below:
 
 <p align="center"> <img src="https://ai-how.github.io/img/Loss_Imputer.png" width="690" height="40" /> </p>
 
