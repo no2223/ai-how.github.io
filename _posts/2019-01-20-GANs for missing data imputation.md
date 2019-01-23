@@ -74,6 +74,8 @@ The joint learning for generating process and imputer is defined as according to
 
 The whole architectural approach to use GANs for missing value imputation looks quite convincing. Lets have a look at how this approach compares against some of the benchmarks. Below depcicts the performance comparison of how well MisGAN (as referred here in this paper [1](https://openreview.net/pdf?id=S1lDV3RcKm)) imputes missing value and is able to generate clear digits where other methods looks to struggle.
 
+<p align="center"> <img src="https://ai-how.github.io/img/Performance.png" width="600" height="390" /> </p>
+
 For more indepth details I would recommend to read this interesting paper which got accepted at ICLR-2019 [1](https://openreview.net/pdf?id=S1lDV3RcKm)
 
 As always Happy reading !!
