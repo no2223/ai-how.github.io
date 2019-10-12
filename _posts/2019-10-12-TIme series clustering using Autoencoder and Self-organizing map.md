@@ -16,7 +16,9 @@ One of the ways to achieve a task of clustering, is to represent each observatio
 
 A partial overview of their approach is illustrated in figure below which trains the model in an end to end fashion using weighted sum of four loss components (Loss1, Loss2, Loss3, Loss4)
 
-<p align="center"> <img src="https://ai-how.github.io/img/AE_loss.png" width="600" height="390" /> </p>
+<p align="center"> <img src="https://ai-how.github.io/img/AE_loss.png" width="950" height="500" /> </p>
+
+Loss1 and 2 are also known as reconstruction loss corresponding to encoded representation and embedded representation. The authors initialize the embedded representations for a pre-defined number of clusters (K_i). Thus for a given encoded representation its closest embedded representation is identified threby assigning each latent/encoded representation to a cluster (K_i). To enforce the similarity of encoded representation to its assigned embedded representation Loss3 is incorporated. Loss4 ensures that the neighbors of K_i to be closer to encoded representation, this enables embeddings to exhibit self organizing property.
 
 The task for clsutering algorithm; in particularly neural network based algorithm is to identify the n-dimensional representations that are closer for similar observations and further apart for different categories. Once the representation 
 
