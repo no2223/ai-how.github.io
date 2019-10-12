@@ -14,6 +14,8 @@ Clustering is a form of unsupervised learning, aims at grouping dataset exhibiti
 
 One of the ways to achieve a task of clustering, is to represent each observation using a feature vector followed with a standard kmeans algorithm. The task of Kmeans for clustering becomes much more easier if feature vector/n-dimensional representation for each observations are well represented. Reserach article published at ICLR 2019 [1](https://arxiv.org/abs/1806.02199) combines the two; representational learning and clustering using autoencoder and self organizing map.
 
+<p align="center"> <img src="https://ai-how.github.io/img/AE_loss.png" width="600" height="390" /> </p>
+
 The task for clsutering algorithm; in particularly neural network based algorithm is to identify the n-dimensional representations that are closer for similar observations and further apart for different categories. Once the representation 
 
 GANs as a generative modeling approach has demonstrated the ability to learn an underlying distribution of the partially observed data. This learnt distribution is then applied to generate sample of similar kind thereby benefitting in increasing the data size and its quality. GANs have found useful in several applications (not limited to):
