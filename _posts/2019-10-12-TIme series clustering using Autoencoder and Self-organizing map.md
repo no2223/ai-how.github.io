@@ -24,7 +24,11 @@ Loss1 and 2 are also known as reconstruction loss corresponding to encoded repre
 
 S&P 500 dataset for 500 industries is taken from [2](https://www.kaggle.com/camnugent/sandp500/download). For the purpose of this blog, I took open price data for each industry aggregated at a monthly level available from Feb-13 to Feb-18. Monthly open price movement is first standardized using z-scaler.
 
-Using above defined architecture, the model is trained to minimize the weighted sum of losses (1-4). 
+Using above defined architecture, the model is trained to minimize the weighted sum of losses (1-4).
+
+For the purpose of model training the entire length of S&P 500 time series values (aggregated at monthly level) is fed as an input to the encoder (which is MLP network). The loss function behavior is depicted below:
+
+<p align="center"> <img src="https://ai-how.github.io/img/Train_Loss.png" width="650" height="450" /> </p>
 
 The task for clsutering algorithm; in particularly neural network based algorithm is to identify the n-dimensional representations that are closer for similar observations and further apart for different categories. Once the representation 
 
