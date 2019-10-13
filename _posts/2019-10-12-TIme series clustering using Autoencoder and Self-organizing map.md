@@ -52,10 +52,12 @@ The closeness of ratio to zero indicates the better clustering quality. Below we
 
 <p align="center"> <img src="https://ai-how.github.io/img/Ratio_Hist.png" width="650" height="550" /> </p>
 
-The task for clsutering algorithm; in particularly neural network based algorithm is to identify the n-dimensional representations that are closer for similar observations and further apart for different categories. Once the representation 
+In histogram above, there are few points whose ratio is greater than depicting they are not clustered correctly as their distance to its own cluster is higher than remaining cluster. 
 
 # What I really liked ?
 
-The method proposed in this paper [1](https://arxiv.org/abs/1806.02199) offers an end to end approach; right from learning representation to assigning clusters. However a challenge still remains to identify the cluster counts which could cluster points such that their within distance is always lesser than the average distance to remaining clusters.
+The method proposed in this paper [1](https://arxiv.org/abs/1806.02199) offers an end to end approach; right from learning representation to assigning clusters. However a challenge still remains to choose the appropriate cluster counts which could cluster points such that their within distance is always lesser than the average distance to remaining clusters.
 
 The codebase is adapted from the one released by author and is slightly modified to remove the effect of loss occuring due to transition probabilities and only consider losses (L1-L4) defined above. Another direction in which the effectiveness of algorithm could be tested is by replacing MLP at the autoencoder with LSTM to retain the time varying behavior of time series data
+
+Drawings are made using [3](https://sketchboard.io/)
