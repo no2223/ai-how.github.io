@@ -42,9 +42,15 @@ When a pair with maximum distance is picked within the same cluster, the two tim
 
 Since labels are not present to evaluate how well the time series signals are clustered, a combination of pairwise point distance within the cluster and in between cluster is used. Corresponding to each point its average pairwise distance within its own cluster is derived and average pairwise distance to points falling in each cluster other than its own. This gives an estimate of how far a point is from its own cluster in comparison to each of the remaining cluster individually.
 
-Thus for a point say Point1_1 we end up having three distance measures; one is referred as within obtained by taking average of pairwise point distance in its own cluster (Point1_1, Point2_1), (Point1_1, Point3_1). Remaining two would be estimated by taking average of point1_1 distance to points falling in cluster 2 and 3.
+Thus for a point say Point1_1 we end up having three distance measures; one is referred as within obtained by taking average of pairwise point distance in its own cluster (Point1_1, Point2_1), (Point1_1, Point3_1). Remaining two would be estimated by taking average of point1_1 distance to points falling in cluster 2 and 3 individually.
 
 <p align="center"> <img src="https://ai-how.github.io/img/Clustering.png" width="650" height="550" /> </p>
+
+This will be repeated for all the points across all the clusters. In an ideal situation where points are clustered appropriately within distance measure for a point should be less than its distance to other clusters. Thus, we derive a ratio of a point distance to its own cluster (referred here as within) with average of distances to remaining cluster.
+
+The closeness of ratio to zero indicates the better clustering quality. Below we plot the histogram of ratio across all the points.
+
+<p align="center"> <img src="https://ai-how.github.io/img/Ratio_Hist.png" width="650" height="550" /> </p>
 
 The task for clsutering algorithm; in particularly neural network based algorithm is to identify the n-dimensional representations that are closer for similar observations and further apart for different categories. Once the representation 
 
