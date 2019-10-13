@@ -34,6 +34,10 @@ Now lets look at the time series data falling into the same cluster. For this di
 
 <p align="center"> <img src="https://ai-how.github.io/img/Cluster tightness.png" width="650" height="450" /> </p>
 
+When a pair with maximum distance is picked within the same cluster, the similarity of two time series signals falls apart as shown below.
+
+<p align="center"> <img src="https://ai-how.github.io/img/Pair_Max_Dist.png" width="650" height="450" /> </p>
+
 The task for clsutering algorithm; in particularly neural network based algorithm is to identify the n-dimensional representations that are closer for similar observations and further apart for different categories. Once the representation 
 
 GANs as a generative modeling approach has demonstrated the ability to learn an underlying distribution of the partially observed data. This learnt distribution is then applied to generate sample of similar kind thereby benefitting in increasing the data size and its quality. GANs have found useful in several applications (not limited to):
