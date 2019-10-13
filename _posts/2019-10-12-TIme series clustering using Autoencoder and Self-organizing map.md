@@ -1,11 +1,11 @@
 ---
 layout: post
 title: TIme series clustering using Autoencoder and Self-organizing map
-published: false
+published: true
 comments: true
-image: "/img/20190120_181402.png"
-share-img: "/img/20190120_181402.png"
-thumbnail: "/img/20190120_181402.png"
+image: "/img/Clustering.png"
+share-img: "/img/Clustering.png"
+thumbnail: "/img/Clustering.png"
 ---
 
 # Learning better representations for clustering
