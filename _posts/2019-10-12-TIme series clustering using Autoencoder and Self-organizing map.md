@@ -28,15 +28,15 @@ Using above defined architecture, the model is trained to minimize the weighted 
 
 For the purpose of model training the entire length of S&P 500 time series values (aggregated at monthly level) is fed as an input to the encoder (which is MLP network). The loss function behavior is depicted below:
 
-<p align="center"> <img src="https://ai-how.github.io/img/Train_Loss.png" width="650" height="450" /> </p>
+<p align="center"> <img src="https://ai-how.github.io/img/Train_Loss.png" width="650" height="350" /> </p>
 
 Now lets look at the time series data falling into the same cluster. For this distance between pair of points falling into same cluster is identified and the pair possesing the minimum distance is picked for illustration purpose.
 
-<p align="center"> <img src="https://ai-how.github.io/img/Cluster tightness.png" width="650" height="450" /> </p>
+<p align="center"> <img src="https://ai-how.github.io/img/Cluster tightness.png" width="650" height="350" /> </p>
 
-When a pair with maximum distance is picked within the same cluster, the similarity of two time series signals falls apart as shown below.
+When a pair with maximum distance is picked within the same cluster, the two time series follow the same trend except scale difference.
 
-<p align="center"> <img src="https://ai-how.github.io/img/Pair_Max_Dist.png" width="650" height="450" /> </p>
+<p align="center"> <img src="https://ai-how.github.io/img/Pair_Max_Dist.png" width="650" height="350" /> </p>
 
 The task for clsutering algorithm; in particularly neural network based algorithm is to identify the n-dimensional representations that are closer for similar observations and further apart for different categories. Once the representation 
 
