@@ -30,6 +30,10 @@ For the purpose of model training the entire length of S&P 500 time series value
 
 <p align="center"> <img src="https://ai-how.github.io/img/Train_Loss.png" width="650" height="450" /> </p>
 
+Now lets look at the time series data falling into the same cluster. For this distance between pair of points falling into same cluster is identified and the pair possesing the minimum distance is picked for illustration purpose.
+
+<p align="center"> <img src="https://ai-how.github.io/img/Cluster tightness.png" width="650" height="450" /> </p>
+
 The task for clsutering algorithm; in particularly neural network based algorithm is to identify the n-dimensional representations that are closer for similar observations and further apart for different categories. Once the representation 
 
 GANs as a generative modeling approach has demonstrated the ability to learn an underlying distribution of the partially observed data. This learnt distribution is then applied to generate sample of similar kind thereby benefitting in increasing the data size and its quality. GANs have found useful in several applications (not limited to):
